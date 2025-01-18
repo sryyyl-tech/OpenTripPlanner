@@ -1,13 +1,13 @@
 FROM opentripplanner/opentripplanner:latest
 
-# Créez le répertoire data s'il n'existe pas déjà
-RUN mkdir -p /var/otp/data
+# Créer le répertoire attendu par OTP
+RUN mkdir -p /var/opentripplanner
 
-# Copiez vos fichiers GTFS dans le répertoire approprié
-COPY data /var/otp/data
+# Copier vos fichiers GTFS dans le répertoire attendu par OTP
+COPY data /var/opentripplanner
 
-# Téléchargez le fichier GTFS de De Lijn si ce n'est pas déjà fait
-RUN curl -L -o /var/otp/data/de_lijn-gtfs.zip "https://gtfs.irail.be/de-lijn/de_lijn-gtfs.zip"
+# Télécharger les données GTFS de De Lijn dans le répertoire OTP
+RUN curl -L -o /var/opentripplanner/de_lijn-gtfs.zip "https://gtfs.irail.be/de-lijn/de_lijn-gtfs.zip"
 
-# Commande pour démarrer OTP
+# Démarrer OTP avec les options
 CMD ["--build", "--serve"]
